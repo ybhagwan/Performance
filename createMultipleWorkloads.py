@@ -4,7 +4,7 @@ import os
 from ruamel.yaml import YAML
 import time
 import subprocess
-#python3 createWorkload2.py gke_advanced-editions-engineering_us-west2_ybhagwan-gke-build1 5 tap-install 360
+#python3 createWorkload2.py gke_advanced-editions-engineering_us-west2_ybhagwan-gke-build1 50 medium tap-install 360
 #python3 deliverables.ya "build cluster" "run cluster" "n-workloads" "dev-namespace"
 #python3 deliverables.ya gke_advanced-editions-engineering_us-west2_ybhagwan-gke-build1 gke_advanced-editions-engineering_us-central1_ybhagwan-gke-run2 "n-workloads" "dev-namespace"
 

@@ -29,13 +29,13 @@ def checkWorkloadsStatus(nworkloads, nameSpace, period):
         timeLapse = int(time.time() - startTime)
 
 def createWorkload(wType, num, waitTime, nameSpace):
-    workloadFile = "tjwa"
+    workloadFile = "light"
     workloadName = "tanzu-java-web-app-"
-    if(wType == "sp"):
-        workloadFile = "workloadSP.yaml"
+    if(wType == "medium"):
+        workloadFile = "mediumWorkload.yaml"
         workloadName = "spring-petclinic-"
     else:
-        workloadFile = "workloadTJWA.yaml"
+        workloadFile = "lightWorkload.yaml"
     for i in range(1,workloads+1):
         with open(workloadFile) as data:
             documents = yaml.load(data)

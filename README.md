@@ -12,4 +12,4 @@ python3 createMultipleWorkloads.py clusterName numberOfWorkloads workloadTypes n
 **numberOfWorkloads** : Eg : 10, 50, 100\
 **workloadTypes**     : light/medium (light : tanzu-java-web-app and and medium : spring-petclinic)\
 **namespace**         : developer namespace (Eg : my-apps or tap-install)\
-**wiatTime**          : Specified time (in seconds) to wait to comeup all the workload in ready sate (Eg: 3600/7200)
+**wiatTime**          : Specified time (in seconds) to wait to comeup all the workload in ready state (Eg: 3600/7200)

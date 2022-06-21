@@ -23,9 +23,9 @@ def checkWorkloadsStatus(nworkloads, nameSpace, period):
             proc = subprocess.Popen("/usr/local/bin/tanzu apps workload list -n "+nameSpace,shell = True, stdout=subprocess.PIPE)
             result,err = proc.communicate()
             readyCount = result.decode('ascii').count("Ready")
-            print("Total number of Ready workloads   : "+str(readyCount))
-            print("Total number of Unknown workloads : "+str(workloads - readyCount))
-            print("Total time elapsed in seconds     : "+str(timeLapse))
+            print("Total number of workloads in Ready state   : "+str(readyCount))
+            print("Total number of workloads Not Ready        : "+str(workloads - readyCount))
+            print("Total time elapsed in seconds              : "+str(timeLapse))
             if(readyCount == nworkloads):
                 print("All workloads are in ready state in "+str(timeLapse)+" sec")
                 break

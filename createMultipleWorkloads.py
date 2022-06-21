@@ -3,6 +3,7 @@ import sys
 import os
 from ruamel.yaml import YAML
 import time
+from datetime import datetime
 import subprocess
 #python3 createWorkload2.py gke_advanced-editions-engineering_us-west2_ybhagwan-gke-build1 50 medium tap-install 360
 #python3 deliverables.ya "build cluster" "run cluster" "n-workloads" "dev-namespace"
@@ -11,22 +12,27 @@ import subprocess
 yaml = YAML()
 yaml.preserve_quotes = True
 
+ExecStartTime = datetime.now()
+print("Start time : "+str(ExecStartTime))
 
 def checkWorkloadsStatus(nworkloads, nameSpace, period):
     timeLapse = 0
     startTime = time.time()
     while(timeLapse <= period):
-        proc = subprocess.Popen("/usr/local/bin/tanzu apps workload list -n "+nameSpace,shell = True, stdout=subprocess.PIPE)
-        result,err = proc.communicate()
-        readyCount = result.decode('ascii').count("Ready")
-        print("Total number of Ready workloads   : "+str(readyCount))
-        print("Total number of Unknown workloads : "+str(workloads - readyCount))
-        print("Total time elapsed in seconds     : "+str(timeLapse))
-        if(readyCount == nworkloads):
-            print("All workloads are in ready state in "+str(timeLapse)+" sec")
-            break
-        time.sleep(3)
-        timeLapse = int(time.time() - startTime)
+        try:
+            proc = subprocess.Popen("/usr/local/bin/tanzu apps workload list -n "+nameSpace,shell = True, stdout=subprocess.PIPE)
+            result,err = proc.communicate()
+            readyCount = result.decode('ascii').count("Ready")
+            print("Total number of Ready workloads   : "+str(readyCount))
+            print("Total number of Unknown workloads : "+str(workloads - readyCount))
+            print("Total time elapsed in seconds     : "+str(timeLapse))
+            if(readyCount == nworkloads):
+                print("All workloads are in ready state in "+str(timeLapse)+" sec")
+                break
+            time.sleep(3)
+            timeLapse = int(time.time() - startTime)
+        except UnicodeDecodeError as e:
+            print(e)
 
 def createWorkload(wType, num, waitTime, nameSpace):
     workloadFile = "small"
@@ -65,3 +71,8 @@ time.sleep(5)
 
 createWorkload(workloadType, workloads, period, nameSpace)
 checkWorkloadsStatus(workloads, nameSpace, period)
+
+ExecEndTime = datetime.now()
+print("===========================")
+print("Execution Start Time : "+str(ExecStartTime))
+print("Execution End Time   : "+str(ExecEndTime))

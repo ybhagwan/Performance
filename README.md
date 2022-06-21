@@ -2,7 +2,7 @@
 This project contains performance script
 
 Pre-requisite :
-1. Install package uamel.yaml : pip3 install ruamel.yaml\
+1. Install package uamel.yaml : pip3 install ruamel.yaml
 
 File **createMultipleWorkloads.py** used to create multiple workloads on a given cluster and wait for all the workloads to become ready state.
 

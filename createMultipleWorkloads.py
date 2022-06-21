@@ -45,7 +45,7 @@ def createWorkload(wType, num, waitTime, nameSpace):
     for i in range(1,workloads+1):
         with open(workloadFile) as data:
             documents = yaml.load(data)
-            print(documents['metadata']['name'])
+            #print(documents['metadata']['name'])
             documents['metadata']['name'] = workloadName+str(i)
             print(documents['metadata']['name'])
             with open("workload_temp.yaml", "w+") as wt:

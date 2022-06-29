@@ -56,14 +56,14 @@ def createWorkload(wType, num, waitTime, nameSpace):
             print(result.decode('ascii'))
 
 
-buildCluster = sys.argv[1]
+clusterName = sys.argv[1]
 workloads = int(sys.argv[2])
 workloadType = sys.argv[3]
 nameSpace = sys.argv[4]
 period = int(sys.argv[5])
 
 #os.system('kubectl config use-context '+ buildCluster)
-proc1 = subprocess.Popen('kubectl config use-context '+ buildCluster,shell = True, stdout=subprocess.PIPE)
+proc1 = subprocess.Popen('kubectl config use-context '+ clusterName,shell = True, stdout=subprocess.PIPE)
 result,err = proc1.communicate()
 print(result.decode('ascii'))
 time.sleep(5)

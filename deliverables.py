@@ -1,3 +1,4 @@
+#!/Library/Frameworks/Python.framework/Versions/3.7/bin/python3
 from threading import Thread
 import sys
 from ruamel.yaml import YAML
@@ -5,7 +6,7 @@ import os
 import time
 from datetime import datetime
 import subprocess
-#python3 deliverables.ya "build cluster" "run cluster"  "workloadType" "n-workloads" "dev-namespace"
+#python3 deliverables.ya "build cluster" "run cluster"  "workloadType" "n-workloads" "dev-namespace" "period
 
 yaml = YAML()
 yaml.preserve_quotes = True
@@ -13,11 +14,6 @@ timestamp1 = datetime.now()
 timestamp = timestamp1.strftime('%d-%b-%Y-%H-%M-%S')
 dir1 = os.getcwd() + 'deliverables-'+timestamp
 os. makedirs(dir1)
-buildCluster = sys.argv[1]
-runCluster = sys.argv[2]
-workloadType = sys.argv[3]
-workloads = int(sys.argv[4])
-nameSpace = sys.argv[5]
 
 ExecStartTime = datetime.now()
 print("Start time : "+str(ExecStartTime))
@@ -33,7 +29,7 @@ def createDeliverables(buildCluster, workloadType, nWorkloads, nameSpace):
         deliverableName = "spring-petclinic-"
 
     for i in range(1,nWorkloads+1):
-        proc1 = subprocess.Popen('kubectl get deliverable'+deliverableName+str(i)+' --namespace '+nameSpace+' -oyaml > deliverables-'+deliverableName+str(i)+'.yaml')
+        proc1 = subprocess.Popen('kubectl get deliverable'+deliverableName+str(i)+' --namespace '+nameSpace+' -oyaml > '+dir1+'deliverables-'+deliverableName+str(i)+'.yaml')
         result,err = proc1.communicate()
         print(result.decode('ascii'))
         with open(dir1+'/deliverables-'+deliverableName+str(i)+'.yaml', 'w+') as stream:
@@ -80,9 +76,17 @@ def checkWorkloadsStatus(nworkloads, nameSpace, period):
         except UnicodeDecodeError as e:
             print(e)
 
-createDeliverables()
-importDeliverables()
-checkWorkloadsStatus()
+
+buildCluster = sys.argv[1]
+runCluster = sys.argv[2]
+workloadType = sys.argv[3]
+workloads = int(sys.argv[4])
+nameSpace = sys.argv[5]
+period = sys.argv[6]
+
+createDeliverables(buildCluster, workloadType, workloads, nameSpace)
+importDeliverables(runCluster, workloadType, workloads, nameSpace)
+checkWorkloadsStatus(workloads, nameSpace, period)
 
 ExecEndTime = datetime.now()
 print("===========================")
